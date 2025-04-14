@@ -50,7 +50,7 @@ def download_all_user_sgf(username):
     idx = 0
     for i in range(len(chessid)):
         download_sgf(chessid[i], fn[i])
-        print(i + 1, fn[i], 'LAST CODE:', lastCode)
+        print(i + 1, fn[i], 'LAST CODE: None')
         time.sleep(1)
 
     while True:
