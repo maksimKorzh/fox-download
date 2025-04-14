@@ -7,11 +7,11 @@ import codecs
 import time
 import sys
 
-def game_list(lastCode):
+def game_list(lastCode, username):
     values = {
     "type": 4,
     "lastCode": lastCode,
-    "username": input('FOX user name: '),
+    "username": username,
     "RelationTag": 0}
     url = "http://happyapp.huanle.qq.com/cgi-bin/CommonMobileCGI/TXWQFetchChessList"
     response = requests.get(url, params=values)
@@ -45,8 +45,8 @@ def download_sgf(cid, fn):
     f.write(sgf)
     f.close()
 
-def download_all_user_sgf():
-    chessid, fn = game_list("")
+def download_all_user_sgf(username):
+    chessid, fn = game_list("", username)
     idx = 0
     for i in range(len(chessid)):
         download_sgf(chessid[i], fn[i])
@@ -56,13 +56,14 @@ def download_all_user_sgf():
     while True:
         lastCode = chessid[-1]
         idx += len(chessid)
-        chessid, fn = game_list(lastCode)
+        chessid, fn = game_list(lastCode, username)
         if len(chessid) == 0:
             break
 
         for i in range(len(chessid)):
             download_sgf(chessid[i], fn[i])
-            print(i + idx + 1, fn[i])
+            print(i + idx + 1, fn[i], 'LAST CODE:', lastCode)
             time.sleep(1)
 
-download_all_user_sgf()
+username = input('FOX user name: ')
+download_all_user_sgf(username)
