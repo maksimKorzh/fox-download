@@ -46,7 +46,7 @@ def download_sgf(cid, fn):
     f.close()
 
 def download_all_user_sgf(username):
-    chessid, fn = game_list("", username)
+    chessid, fn = game_list("1493020347019999256", username)
     idx = 0
     for i in range(len(chessid)):
         download_sgf(chessid[i], fn[i])
